@@ -77,29 +77,3 @@ class Auth():
         For now, it simply returns None.
         """
         return None
-    
-from typing import List
-
-class Auth:
-    """Template for all authentication system"""
-
-    def require_auth(self, path: str, excluded_paths: List[str]) -> bool:
-        """Determines if authentication is required"""
-        if path is None or excluded_paths is None or excluded_paths == []:
-            return True
-
-        if not path.endswith('/'):
-            path += '/'
-
-        for ex_path in excluded_paths:
-            if ex_path.endswith('*'):
-                # Match prefix excluding the '*' at the end
-                if path.startswith(ex_path[:-1]):
-                    return False
-            else:
-                if not ex_path.endswith('/'):
-                    ex_path += '/'
-                if path == ex_path:
-                    return False
-
-        return True
