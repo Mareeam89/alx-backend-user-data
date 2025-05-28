@@ -3,7 +3,6 @@
 Route module for the API
 """
 
-
 import os
 from os import getenv
 from typing import Tuple
@@ -18,6 +17,7 @@ from api.v1.views import app_views
 app = Flask(__name__)
 app.register_blueprint(app_views)
 CORS(app, resources={r"/api/v1/*": {"origins": "*"}})
+
 # Create a variable auth initialized to None after the CORS definition
 auth = None
 
@@ -36,7 +36,7 @@ else:
 
 
 @app.errorhandler(404)
-def not_found(error) -> str:
+def not_found(error) -> Tuple[jsonify, int]:
     """ Not found handler
     """
     return jsonify({"error": "Not found"}), 404
